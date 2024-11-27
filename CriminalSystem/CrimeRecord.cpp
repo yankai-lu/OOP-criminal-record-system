@@ -12,6 +12,7 @@ namespace CriminalSystem
             months[i]+=months[i-1];
     }
     CrimeRecord::CrimeRecord():left(nullptr),right(nullptr),p(nullptr) {}
+    CrimeRecord::CrimeRecord(int c,CrimeRecord* l,CrimeRecord* r,CrimeRecord* parent):color(c),left(l),right(r),p(p) {}
     CrimeRecord::CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,Criminal* crimi,int c,CrimeRecord *l,CrimeRecord *r,CrimeRecord *parent):type(t),description(d),left(l),right(r),p(parent),color(c),criminal(crimi)
     {
         int months[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
