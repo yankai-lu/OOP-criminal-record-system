@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/john/Documents/GitHub-ChungChengEn/OOP-criminal-record-system/RB_Tree",
+      "program": "/Users/john/Documents/GitHub-ChungChengEn/OOP-criminal-record-system/RB_Tree/build/Debug/outDebug"
+    }
+  ]
+}
