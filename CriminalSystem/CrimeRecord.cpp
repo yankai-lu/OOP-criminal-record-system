@@ -32,13 +32,8 @@ namespace CriminalSystem
     {
         int months[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
         display(months);
-        for(int i=0;i<13;i++)
-        {
-            cout << months[i] << " " ;
-        }
         
         vector<int> res;
-
         int temp=time;
         int year=temp/525600;
         res.push_back(year);
