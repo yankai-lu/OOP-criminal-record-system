@@ -1,14 +1,22 @@
 # OOP-criminal-record-system
 OOP project 
 
-#### modification -will be modified on 11/27
-1. 紅黑數的 `Node` 改成直接使用 `CrimeRecord` 作為節點
-2. 每一個 `CrimeRecord` Node 新增兩個 attributes: 
-* `CrimeRecord->parent` , `CrimeRecord->color`
-  
-3. 每一個 `CrimeRecord` Node 刪除兩個 attributes:
-* `CrimeRecord->left`, `CrimeRecord->right`
 
-4. `Criminal` class 改成使用 `vector<CrimeRecord>` 儲存 `CrimeRecord` objects, 捨棄 doubly linked-list
+1. `Criminal` class 改成使用 `vector<CrimeRecord>` 儲存 `CrimeRecord` objects, 捨棄 doubly linked-list
 
 查找時間從原本的時間複雜度 `O(lgn + m)` 變為 `O(lgn)` 
+
+
+### Adding searching functions in Red Black Tree
+1. Search based on `time` only
+2. Search based on an `interval of time` only
+3. Search based on `time` and `type of crime`
+4. Search based on `an interval of time` and `type of crime`
+5. Search based on `criminal's name`
+
+
+### System class
+1. 負責將新產生的 CrimeRecord 節點與 Criminal object 連結再一起 (UML)
+2. 使用 Red Black Trees 查找資料並輸出結果 (搜尋功能在 Red Black Tree已經寫好，只需要呼叫 Red Black Tree 內對應的 functions 即可)
+
+### GUI 
