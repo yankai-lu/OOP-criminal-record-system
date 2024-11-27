@@ -12,7 +12,7 @@ namespace CriminalSystem
             months[i]+=months[i-1];
     }
     CrimeRecord::CrimeRecord():left(nullptr),right(nullptr),p(nullptr) {}
-    CrimeRecord::CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,int c,Criminal* crimi,CrimeRecord *l,CrimeRecord *r,CrimeRecord *parent):type(t),description(d),left(l),right(r),p(parent),color(c),criminal(crimi)
+    CrimeRecord::CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,Criminal* crimi,int c,CrimeRecord *l,CrimeRecord *r,CrimeRecord *parent):type(t),description(d),left(l),right(r),p(parent),color(c),criminal(crimi)
     {
         int months[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
         display(months);
@@ -27,7 +27,7 @@ namespace CriminalSystem
     {
         type=t;
     }
-    vector<int> CrimeRecord::getTime() const
+    vector<int> CrimeRecord::getRealTime() const
     {
         int months[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
         display(months);
@@ -60,6 +60,10 @@ namespace CriminalSystem
 
         return res;
     }
+    int CrimeRecord::getTime() const
+    {
+        return time;
+    }
     void CrimeRecord::setTime(int y,int month,int day,int hour,int minute)
     {
         int months[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
@@ -90,6 +94,14 @@ namespace CriminalSystem
     {
         p=other;
     }
+    int CrimeRecord::getColor() const
+    {
+        return color;
+    }
+    void CrimeRecord::setColor(int c)
+    {
+        color=c;
+    }
     Criminal* CrimeRecord::getCriminal() const
     {
         return criminal;
@@ -102,11 +114,6 @@ namespace CriminalSystem
     {
         int months[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
         display(months);
-        for(int i=0;i<13;i++)
-        {
-            cout << months[i] << " " ;
-        }
-        cout << endl ;
         
         int temp=cr.time;
         int year=temp/525600;
@@ -124,7 +131,7 @@ namespace CriminalSystem
 
         out << "Time : " << year << "/" << month << "/" << day << " " << hour << ":" << minute << endl ;
         out << "Crime type : " << cr.type << endl ;
-        out << "Crime description : " << cr.description << endl ;
+        out << "Crime description : " << cr.description ;
 
         return out;
     }
