@@ -2,31 +2,40 @@
 #define CRIMINALSYSTEM_H
 
 #include<iostream>
+#include<vector>
 using namespace std;
 
 namespace CriminalSystem
 {
+    class Criminal;
     class CrimeRecord
         {
         private:
             string type;
             int time;
             string description;
-            CrimeRecord *next;
-            CrimeRecord *prev;
+            CrimeRecord *left;
+            CrimeRecord *right;
+            CrimeRecord *parent;
+            int color;
+            Criminal *criminal;
         public:
             CrimeRecord();
-            CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,CrimeRecord *n=nullptr,CrimeRecord *p=nullptr);
+            CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,int c,Criminal* crimi,CrimeRecord *l=nullptr,CrimeRecord *r=nullptr,CrimeRecord *p=nullptr);
             const string getType();
             void setType(string t);
-            const int getTime();
+            const vector<int> getTime();
             void setTime(int y,int month,int day,int hour,int minute);
             const string getDescription();
             void setDescription(string d);
-            const CrimeRecord* getNext();
-            void setNext(CrimeRecord* other);
-            const CrimeRecord* getPrev();
-            void setPrev(CrimeRecord* other);
+            const CrimeRecord* getLeft();
+            void setLeft(CrimeRecord* other);
+            const CrimeRecord* getRight();
+            void setRight(CrimeRecord* other);
+            const CrimeRecord* getParent();
+            void setParent(CrimeRecord* other);
+            const Criminal* getCriminal();
+            void setCriminal(Criminal* other);
             friend ostream& operator <<(ostream& out,const CrimeRecord& cr);
         };
 
@@ -57,15 +66,12 @@ namespace CriminalSystem
     class Criminal : public Person
     {
     private:
-        CrimeRecord *head;
-        CrimeRecord *tail;
+        int numOfRecord;
+        vector<CrimeRecord*> records;
     public:
         Criminal();
-        Criminal(string i,string bir,string g,string loca,string n,string type,string description,int y,int month,int day,int hour,int minute);
-        const CrimeRecord* getHead();
-        const CrimeRecord* getTail();
-        void addcrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,CrimeRecord);
-        Criminal* seachCrimeRecord(int y,int month,int day,int hour,int minute);
+        Criminal(string i,string bir,string g,string loca,string n,string type,string description,int y,int month,int day,int hour,int minute,int num=1);
+        //void addcrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,CrimeRecord);
         void outputAllinfo();
         void outputAllRecord();
 
