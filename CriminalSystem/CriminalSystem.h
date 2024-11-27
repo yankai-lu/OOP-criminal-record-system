@@ -22,19 +22,19 @@ namespace CriminalSystem
         public:
             CrimeRecord();
             CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,int c,Criminal* crimi,CrimeRecord *l=nullptr,CrimeRecord *r=nullptr,CrimeRecord *parent=nullptr);
-            const string getType();
+            string getType() const;
             void setType(string t);
-            const vector<int> getTime();
+            vector<int> getTime() const;
             void setTime(int y,int month,int day,int hour,int minute);
-            const string getDescription();
+            string getDescription() const;
             void setDescription(string d);
-            const CrimeRecord* getLeft();
+            CrimeRecord* getLeft() const;
             void setLeft(CrimeRecord* other);
-            const CrimeRecord* getRight();
+            CrimeRecord* getRight() const;
             void setRight(CrimeRecord* other);
-            const CrimeRecord* getParent();
+            CrimeRecord* getParent() const;
             void setParent(CrimeRecord* other);
-            const Criminal* getCriminal();
+            Criminal* getCriminal() const;
             void setCriminal(Criminal* other);
             friend ostream& operator <<(ostream& out,const CrimeRecord& cr);
         };
@@ -50,15 +50,15 @@ namespace CriminalSystem
     public:
         Person();
         Person(string i,string bir,string g,string loca,string n);
-        const string getId();
+        string getId() const;
         void setId(string i);
-        const string getBirthday();
+        string getBirthday() const;
         void setBirthday(string b);
-        const string getGender();
+        string getGender() const;
         void setGender(string g);
-        const string getLocation();
+        string getLocation() const;
         void setLocation(string loca);
-        const string getName();
+        string getName() const;
         void setName(string n);
         friend ostream& operator <<(ostream& out,Person& p);
     };
