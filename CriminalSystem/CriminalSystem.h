@@ -21,10 +21,11 @@ namespace CriminalSystem
             Criminal *criminal;
         public:
             CrimeRecord();
-            CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,int c,Criminal* crimi,CrimeRecord *l=nullptr,CrimeRecord *r=nullptr,CrimeRecord *parent=nullptr);
+            CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,Criminal* crimi,int c=0,CrimeRecord *l=nullptr,CrimeRecord *r=nullptr,CrimeRecord *parent=nullptr);
             string getType() const;
             void setType(string t);
-            vector<int> getTime() const;
+            vector<int> getRealTime() const;
+            int getTime() const;
             void setTime(int y,int month,int day,int hour,int minute);
             string getDescription() const;
             void setDescription(string d);
@@ -34,6 +35,8 @@ namespace CriminalSystem
             void setRight(CrimeRecord* other);
             CrimeRecord* getParent() const;
             void setParent(CrimeRecord* other);
+            int getColor() const;
+            void setColor(int c);
             Criminal* getCriminal() const;
             void setCriminal(Criminal* other);
             friend ostream& operator <<(ostream& out,const CrimeRecord& cr);
@@ -70,8 +73,8 @@ namespace CriminalSystem
         vector<CrimeRecord*> records;
     public:
         Criminal();
-        Criminal(string i,string bir,string g,string loca,string n,string type,string description,int y,int month,int day,int hour,int minute,int num=1);
-        //void addcrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,CrimeRecord);
+        Criminal(string i,string bir,string g,string loca,string n);
+        void addcrimeRecord(CrimeRecord* record);
         void outputAllinfo();
         void outputAllRecord();
 
