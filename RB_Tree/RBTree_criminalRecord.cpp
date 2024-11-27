@@ -2,7 +2,7 @@
 #include "../CriminalSystem/CriminalSystem.h"
 
 using namespace CriminalSystem;
-
+typedef CrimeRecord Node;
 
 class RB_Tree;
 // class Node{
@@ -29,8 +29,6 @@ class RB_Tree;
 // };
 // typedef struct Node Node;
 
-typedef CrimeRecord Node;
-
 class RB_Tree{
     Node* root;
     Node* nil;
@@ -42,15 +40,19 @@ class RB_Tree{
     Node* TreeMinimum(Node* r);
     void printInorder(Node* r);
     void printPreorder(Node* r);
+    void countRB(Node* r,int& red, int& black);
 public:
     RB_Tree(void){
-        nil = new Node(-1,1,nullptr,nullptr,nil,nil);
+        nil = new Node(1,nil,nil,nil);
         root = nil;
     }
     void Insert(RB_Tree& T, Node* z);
     void Delete(RB_Tree& T, Node* z);
     void printInorder();
     void printPreorder();
+    void countRB();     // for check use
+    void countLongestPath();    // for check use
+    void countShortestPath();   // for check use
 
 };
 
@@ -266,17 +268,62 @@ void RB_Tree::printPreorder(){
 
 void RB_Tree::printPreorder(Node* r){
     if(r==this->nil)    return;
-    cout << "(" << r->getTime() << ", " << ((r->getColor()==0)? "RED":"BLACK") << "), ";//cout << "(" << r->minute << ", " << ((r->color==0)? "RED":"BLACK") << "), ";
+    cout << "(\'" << (r->getRealTime()).at(0) << "/" << (r->getRealTime()).at(1) << "/" << (r->getRealTime()).at(2) << "\', " << ((r->getColor()==0)? "RED":"BLACK") << "), ";//cout << "(" << r->minute << ", " << ((r->color==0)? "RED":"BLACK") << "), ";
     if(r->getLeft() != this->nil)   printPreorder(r->getLeft());//if(r->left!=this->nil)  printPreorder(r->left);
     if(r->getRight() != this->nil)  printPreorder(r->getRight());//if(r->right!=this->nil) printPreorder(r->right);
 }
 
+void RB_Tree::countRB(){
+    int R=0, B=0;
+    countRB(this->root, R, B);
+    cout << "The number of Red nodes  : " << R << endl;
+    cout << "The number of Black nodes: " << B << endl;
+    cout << "R / B = " << (double) R / B*1.0 << endl;
+}
+
+void RB_Tree::countRB(Node* r, int& red, int& black){
+    if(r==this->nil)    return;
+    if(r->getColor()==0)    red++;
+    else    black++;
+    countRB(r->getLeft(),red,black);
+    countRB(r->getRight(),red,black);
+}
+
+void RB_Tree::countLongestPath(){
+    int length = 0;
+    Node* cur = this->root;
+    while(cur!=this->nil){
+        length++;
+        cur = cur->getRight();
+    }
+    cout << "The longest path has length: " << length << endl;
+}
+
+void RB_Tree::countShortestPath(){
+    int length = 0;
+    Node* cur = this->root;
+    while(cur!=this->nil){
+        length++;
+        cur = cur->getLeft();
+    }
+    cout << "The shortest path has length: " << length << endl;
+}
 int main(){
     RB_Tree tree;
-    for(int i=0;i<1000;i++){
-        tree.Insert(tree,new Node(i));
+    for(int y=2000;y<2010;y++){
+        for(int m=1;m<3;m++){
+            for(int d=1;d<3;d++){
+                Criminal c("H12344","2000/5/9","Male","good downtown ok_street","David");
+                CrimeRecord *record=new CrimeRecord("kill","Kill a person",y,m,d,0,0,&c);
+                tree.Insert(tree,record);
+            }
+        }
         //cout << "----------------------------\n\n\n";
     }
     tree.printPreorder();
+    cout << endl;
+    tree.countRB();
+    tree.countLongestPath();
+    tree.countShortestPath();
     return 0;
 }
