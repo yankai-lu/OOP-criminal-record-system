@@ -16,12 +16,12 @@ namespace CriminalSystem
             string description;
             CrimeRecord *left;
             CrimeRecord *right;
-            CrimeRecord *parent;
+            CrimeRecord *p;
             int color;
             Criminal *criminal;
         public:
             CrimeRecord();
-            CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,int c,Criminal* crimi,CrimeRecord *l=nullptr,CrimeRecord *r=nullptr,CrimeRecord *p=nullptr);
+            CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,int c,Criminal* crimi,CrimeRecord *l=nullptr,CrimeRecord *r=nullptr,CrimeRecord *parent=nullptr);
             const string getType();
             void setType(string t);
             const vector<int> getTime();
