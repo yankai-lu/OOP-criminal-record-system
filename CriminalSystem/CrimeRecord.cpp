@@ -11,15 +11,15 @@ namespace CriminalSystem
         for(int i=2;i<=12;i++)
             months[i]+=months[i-1];
     }
-    CrimeRecord::CrimeRecord():left(nullptr),right(nullptr),parent(nullptr) {}
-    CrimeRecord::CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,int c,Criminal* crimi,CrimeRecord *l,CrimeRecord *r,CrimeRecord *p):type(t),description(d),left(l),right(r),parent(p),color(c),criminal(crimi)
+    CrimeRecord::CrimeRecord():left(nullptr),right(nullptr),p(nullptr) {}
+    CrimeRecord::CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,int c,Criminal* crimi,CrimeRecord *l,CrimeRecord *r,CrimeRecord *parent):type(t),description(d),left(l),right(r),p(parent),color(c),criminal(crimi)
     {
         int months[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
         display(months);
         time=y*525600+(months[month-1]+day)*1440+hour*60+minute;
         //cout << time << endl ;
     }
-    const string CrimeRecord::getType()
+    string CrimeRecord::getType() const
     {
         return type;
     }
@@ -27,7 +27,7 @@ namespace CriminalSystem
     {
         type=t;
     }
-    const vector<int> CrimeRecord::getTime()
+    vector<int> CrimeRecord::getTime() const
     {
         int months[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
         display(months);
@@ -66,7 +66,7 @@ namespace CriminalSystem
         display(months);
         time=y*525600+(months[month-1]+day)*1440+hour*60+minute;
     }
-    const CrimeRecord* CrimeRecord::getLeft()
+    CrimeRecord* CrimeRecord::getLeft() const
     {
         return left;
     }
@@ -74,7 +74,7 @@ namespace CriminalSystem
     {
         left=other;
     }
-    const CrimeRecord* CrimeRecord::getRight()
+    CrimeRecord* CrimeRecord::getRight() const
     {
         return right;
     }
@@ -82,15 +82,15 @@ namespace CriminalSystem
     {
         right=other;
     }
-    const CrimeRecord* CrimeRecord::getParent()
+    CrimeRecord* CrimeRecord::getParent() const
     {
-        return parent;
+        return p;
     }
     void CrimeRecord::setParent(CrimeRecord* other)
     {
-        parent=other;
+        p=other;
     }
-    const Criminal* CrimeRecord::getCriminal()
+    Criminal* CrimeRecord::getCriminal() const
     {
         return criminal;
     }
