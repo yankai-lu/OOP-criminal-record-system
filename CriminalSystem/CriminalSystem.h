@@ -21,6 +21,7 @@ namespace CriminalSystem
             Criminal *criminal;
         public:
             CrimeRecord();
+            CrimeRecord(int c,CrimeRecord* l,CrimeRecord* r,CrimeRecord* parent);
             CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,Criminal* crimi,int c=0,CrimeRecord *l=nullptr,CrimeRecord *r=nullptr,CrimeRecord *parent=nullptr);
             string getType() const;
             void setType(string t);
