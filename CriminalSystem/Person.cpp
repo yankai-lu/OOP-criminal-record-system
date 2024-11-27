@@ -6,7 +6,7 @@ namespace CriminalSystem
 {
     Person::Person() {}
     Person::Person(string i,string bir,string g,string loca,string n):id(i),birthday(bir),gender(g),location(loca),name(n) {}
-    const string Person::getId()
+    string Person::getId() const
     {
         return id;
     }
@@ -14,7 +14,7 @@ namespace CriminalSystem
     {
         id=i;
     }
-    const string Person::getBirthday()
+    string Person::getBirthday() const
     {
         return birthday;
     }
@@ -22,7 +22,7 @@ namespace CriminalSystem
     {
         birthday=b;
     }
-    const string Person::getGender()
+    string Person::getGender() const
     {
         return gender;
     }
@@ -30,7 +30,7 @@ namespace CriminalSystem
     {
         gender=g;
     }
-    const string Person::getLocation()
+    string Person::getLocation() const
     {
         return location;
     }
@@ -38,7 +38,7 @@ namespace CriminalSystem
     {
         location=loca;
     }
-    const string Person::getName()
+    string Person::getName() const
     {
         return name;
     }
