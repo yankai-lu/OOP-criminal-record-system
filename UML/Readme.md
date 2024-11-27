@@ -2,4 +2,4 @@ UML link : https://drive.google.com/file/d/1sAV4y_wOjM_AdxEabGCwfEcapbLchK9x/vie
 
 ### current version of UML
 
-<img src="./UML_ver1.png">
+<img src="./UML_ver1.png" width="50%">
