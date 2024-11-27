@@ -11,8 +11,8 @@ namespace CriminalSystem
         for(int i=2;i<=12;i++)
             months[i]+=months[i-1];
     }
-    CrimeRecord::CrimeRecord():next(nullptr),prev(nullptr) {}
-    CrimeRecord::CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,CrimeRecord* n,CrimeRecord* p):type(t),description(d),next(n),prev(p)
+    CrimeRecord::CrimeRecord():left(nullptr),right(nullptr),parent(nullptr) {}
+    CrimeRecord::CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,int c,Criminal* crimi,CrimeRecord *l,CrimeRecord *r,CrimeRecord *p):type(t),description(d),left(l),right(r),parent(p),color(c),criminal(crimi)
     {
         int months[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
         display(months);
@@ -27,10 +27,38 @@ namespace CriminalSystem
     {
         type=t;
     }
-    const int CrimeRecord::getTime()
+    const vector<int> CrimeRecord::getTime()
     {
+        int months[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
+        display(months);
+        for(int i=0;i<13;i++)
+        {
+            cout << months[i] << " " ;
+        }
         
+        vector<int> res;
+
+        int temp=time;
+        int year=temp/525600;
+        res.push_back(year);
+        temp%=525600;
         
+        int days=temp/1440;
+        temp%=1440;
+        int month=1;
+        while(months[month]<days)
+            month++;
+        res.push_back(month);
+
+        int day=days-months[month-1];
+        res.push_back(day);
+        
+        int hour=temp/60;
+        res.push_back(hour);
+        int minute=temp%=60;
+        res.push_back(minute);
+
+        return res;
     }
     void CrimeRecord::setTime(int y,int month,int day,int hour,int minute)
     {
@@ -38,21 +66,37 @@ namespace CriminalSystem
         display(months);
         time=y*525600+(months[month-1]+day)*1440+hour*60+minute;
     }
-    const CrimeRecord* CrimeRecord::getNext()
+    const CrimeRecord* CrimeRecord::getLeft()
     {
-        return next;
+        return left;
     }
-    void CrimeRecord::setNext(CrimeRecord* other)
+    void CrimeRecord::setLeft(CrimeRecord* other)
     {
-        next=other;
+        left=other;
     }
-    const CrimeRecord* CrimeRecord::getPrev()
+    const CrimeRecord* CrimeRecord::getRight()
     {
-        return prev;
+        return right;
     }
-    void CrimeRecord::setPrev(CrimeRecord* other)
+    void CrimeRecord::setRight(CrimeRecord* other)
     {
-        prev=other;
+        right=other;
+    }
+    const CrimeRecord* CrimeRecord::getParent()
+    {
+        return parent;
+    }
+    void CrimeRecord::setParent(CrimeRecord* other)
+    {
+        parent=other;
+    }
+    const Criminal* CrimeRecord::getCriminal()
+    {
+        return criminal;
+    }
+    void CrimeRecord::setCriminal(Criminal* other)
+    {
+        criminal=other;
     }
     ostream& operator <<(ostream& out,const CrimeRecord& cr)
     {
