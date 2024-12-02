@@ -13,9 +13,6 @@ class RB_Tree{
     void InsertFixup(RB_Tree& T, Node* x);
     void DeleteFixup(RB_Tree& T, Node* x);
     Node* TreeMinimum(Node* r);
-    void printInorder(Node* r);
-    void printPreorder(Node* r);
-    void countRB(Node* r,int& red, int& black);
     void display(int* months);
     vector<Node*> Interval(Node* node, int time1, int time2);
 public:
@@ -25,11 +22,6 @@ public:
     }
     void Insert(RB_Tree& T, Node* z);
     void Delete(RB_Tree& T, Node* z);
-    void printInorder();
-    void printPreorder();
-    void countRB();     // for check use
-    void countLongestPath();    // for check use
-    void countShortestPath();   // for check use
     vector<Node*> SearchTime(int year, int month, int day, int hour, int minute);
     vector<Node*> SearchInterval(int year1, int month1, int day1, int hour1, int minute1, int year2, int month2, int day2, int hour2, int minute2);
 };
@@ -159,7 +151,6 @@ void RB_Tree::Delete(RB_Tree& T, Node* z){
     if(y_original_color==1) this->DeleteFixup(T,x);
 }
 
-
 Node* RB_Tree::TreeMinimum(Node* r){
     Node* y = this->nil;
     while(r!=this->nil){
@@ -224,67 +215,6 @@ void RB_Tree::DeleteFixup(RB_Tree& T, Node* x){
             }
         }
     }
-}
-
-void RB_Tree::printInorder(){
-    Node* r = this->root;
-    this->printInorder(r);
-}
-
-void RB_Tree::printInorder(Node* r){
-    if(r==this->nil)    return;
-
-    if(r->getLeft() != this->nil)   printInorder(r->getLeft());//if(r->left!=this->nil)  printInorder(r->left);
-    std::cout << r->getTime() << ", ";//cout << r->minute << ", ";
-    if(r->getRight() != this->nil)  printInorder(r->getRight());//if(r->right!=this->nil) printInorder(r->right);
-}
-
-void RB_Tree::printPreorder(){
-    Node* r = this->root;
-    this->printPreorder(r);
-}
-
-void RB_Tree::printPreorder(Node* r){
-    if(r==this->nil)    return;
-    cout << "(\'" << (r->getRealTime()).at(0) << "/" << (r->getRealTime()).at(1) << "/" << (r->getRealTime()).at(2) << "\', " << ((r->getColor()==0)? "RED":"BLACK") << "), ";//cout << "(" << r->minute << ", " << ((r->color==0)? "RED":"BLACK") << "), ";
-    if(r->getLeft() != this->nil)   printPreorder(r->getLeft());//if(r->left!=this->nil)  printPreorder(r->left);
-    if(r->getRight() != this->nil)  printPreorder(r->getRight());//if(r->right!=this->nil) printPreorder(r->right);
-}
-
-void RB_Tree::countRB(){
-    int R=0, B=0;
-    countRB(this->root, R, B);
-    cout << "The number of Red nodes  : " << R << endl;
-    cout << "The number of Black nodes: " << B << endl;
-    cout << "R / B = " << (double) R / B*1.0 << endl;
-}
-
-void RB_Tree::countRB(Node* r, int& red, int& black){
-    if(r==this->nil)    return;
-    if(r->getColor()==0)    red++;
-    else    black++;
-    countRB(r->getLeft(),red,black);
-    countRB(r->getRight(),red,black);
-}
-
-void RB_Tree::countLongestPath(){
-    int length = 0;
-    Node* cur = this->root;
-    while(cur!=this->nil){
-        length++;
-        cur = cur->getRight();
-    }
-    cout << "The longest path has length: " << length << endl;
-}
-
-void RB_Tree::countShortestPath(){
-    int length = 0;
-    Node* cur = this->root;
-    while(cur!=this->nil){
-        length++;
-        cur = cur->getLeft();
-    }
-    cout << "The shortest path has length: " << length << endl;
 }
 
 void RB_Tree::display(int* months){
@@ -361,34 +291,3 @@ vector<Node*> RB_Tree::SearchInterval(int year1, int month1, int day1, int hour1
     }
     return ans;
 }
-
-
-
-// int main(){
-//     RB_Tree tree;
-//     for(int y=2000;y<2010;y++){
-//         for(int m=1;m<3;m++){
-//             for(int d=1;d<3;d++){
-//                 Criminal *c = new Criminal("H12344","2000/5/9","Male","good downtown ok_street","David");
-//                 CrimeRecord *record=new CrimeRecord("kill","Kill a person",y,m,d,0,0,c);
-//                 tree.Insert(tree,record);
-//             }
-//         }
-//         //cout << "----------------------------\n\n\n";
-//     }
-//     tree.printPreorder();
-//     cout << endl;
-//     tree.countRB();
-//     tree.countLongestPath();
-//     tree.countShortestPath();
-//     vector<Node*> ans;
-//     ans = tree.SearchTime(2000,1,1,0,0);
-//     ans = tree.SearchInterval(2000,1,1,0,0,2009,2,2,0,0);
-//     for(int i=0; i<ans.size(); i++){
-//         ans[i]->getCriminal()->outputAllinfo();
-//         cout << *ans[i] << endl;
-//     }
-//     cout << ans.size() << endl;
-
-//     return 0;
-// }
