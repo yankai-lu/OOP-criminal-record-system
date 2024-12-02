@@ -4,31 +4,6 @@
 using namespace CriminalSystem;
 typedef CrimeRecord Node;
 
-class RB_Tree;
-// class Node{
-// friend class RB_Tree;
-// private:
-//     Node* left;
-//     Node* right;
-//     Node* p;
-//     Criminal* criminal;
-//     int minute;    // time
-
-//     bool color; // 0: red, 1: black
-// public:
-//     Node(int k, bool c=0, Criminal* cr=nullptr, Node* parent=nullptr, Node* l=nullptr, Node* r=nullptr){
-//         minute = k;
-//         color = c;
-//         p = parent;
-//         left = l;
-//         right = r;
-
-//         // node points to the criminal object
-//         criminal = cr;
-//     }
-// };
-// typedef struct Node Node;
-
 class RB_Tree{
     Node* root;
     Node* nil;
@@ -43,7 +18,6 @@ class RB_Tree{
     void countRB(Node* r,int& red, int& black);
     void display(int* months);
     vector<Node*> Interval(Node* node, int time1, int time2);
-    
 public:
     RB_Tree(void){
         nil = new Node(1,nil,nil,nil);
@@ -58,9 +32,6 @@ public:
     void countShortestPath();   // for check use
     vector<Node*> SearchTime(int year, int month, int day, int hour, int minute);
     vector<Node*> SearchInterval(int year1, int month1, int day1, int hour1, int minute1, int year2, int month2, int day2, int hour2, int minute2);
-    // vector<Node*> SearchTimeType();
-    // vector<Node*> SearchIntervalType();
-    // vector<Node*> SearchCriminal();
 };
 
 void RB_Tree::_leftRotate(RB_Tree& T, Node* x){
@@ -393,34 +364,31 @@ vector<Node*> RB_Tree::SearchInterval(int year1, int month1, int day1, int hour1
 
 
 
-int main(){
-    RB_Tree tree;
-    for(int y=2000;y<2010;y++){
-        for(int m=1;m<3;m++){
-            for(int d=1;d<3;d++){
-                Criminal *c = new Criminal("H12344","2000/5/9","Male","good downtown ok_street","David");
-                CrimeRecord *record=new CrimeRecord("kill","Kill a person",y,m,d,0,0,c);
-                tree.Insert(tree,record);
-            }
-        }
-        //cout << "----------------------------\n\n\n";
-    }
-    tree.printPreorder();
-    cout << endl;
-    tree.countRB();
-    tree.countLongestPath();
-    tree.countShortestPath();
-    vector<Node*> ans;
-    ans = tree.SearchTime(2000,1,1,0,0);
-    ans = tree.SearchInterval(2000,1,1,0,0,2009,2,2,0,0);
-    for(int i=0; i<ans.size(); i++){
-        ans[i]->getCriminal()->outputAllinfo();
-        cout << *ans[i] << endl;
-    }
-    cout << ans.size() << endl;
-    
-    
+// int main(){
+//     RB_Tree tree;
+//     for(int y=2000;y<2010;y++){
+//         for(int m=1;m<3;m++){
+//             for(int d=1;d<3;d++){
+//                 Criminal *c = new Criminal("H12344","2000/5/9","Male","good downtown ok_street","David");
+//                 CrimeRecord *record=new CrimeRecord("kill","Kill a person",y,m,d,0,0,c);
+//                 tree.Insert(tree,record);
+//             }
+//         }
+//         //cout << "----------------------------\n\n\n";
+//     }
+//     tree.printPreorder();
+//     cout << endl;
+//     tree.countRB();
+//     tree.countLongestPath();
+//     tree.countShortestPath();
+//     vector<Node*> ans;
+//     ans = tree.SearchTime(2000,1,1,0,0);
+//     ans = tree.SearchInterval(2000,1,1,0,0,2009,2,2,0,0);
+//     for(int i=0; i<ans.size(); i++){
+//         ans[i]->getCriminal()->outputAllinfo();
+//         cout << *ans[i] << endl;
+//     }
+//     cout << ans.size() << endl;
 
-
-    return 0;
-}
+//     return 0;
+// }
