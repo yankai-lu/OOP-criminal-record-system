@@ -5,11 +5,9 @@
 #include<vector>
 using namespace std;
 
-namespace CriminalSystem
-{
+namespace CriminalSystem{
     class Criminal;
-    class CrimeRecord
-        {
+    class CrimeRecord{
         private:
             string type;
             int time;
@@ -41,45 +39,43 @@ namespace CriminalSystem
             Criminal* getCriminal() const;
             void setCriminal(Criminal* other);
             friend ostream& operator <<(ostream& out,const CrimeRecord& cr);
-        };
-
-    class Person
-    {
-    private:
-        string id;
-        string birthday;
-        string gender;
-        string location;
-        string name;
-    public:
-        Person();
-        Person(string i,string bir,string g,string loca,string n);
-        string getId() const;
-        void setId(string i);
-        string getBirthday() const;
-        void setBirthday(string b);
-        string getGender() const;
-        void setGender(string g);
-        string getLocation() const;
-        void setLocation(string loca);
-        string getName() const;
-        void setName(string n);
-        friend ostream& operator <<(ostream& out,Person& p);
     };
 
-    class Criminal : public Person
-    {
-    private:
-        int numOfRecord;
-        vector<CrimeRecord*> records;
-    public:
-        Criminal();
-        Criminal(string i,string bir,string g,string loca,string n);
-        void addcrimeRecord(CrimeRecord* record);
-        void outputAllinfo();
-        void outputAllRecord();
+    class Person{
+        private:
+            string id;
+            string birthday;
+            string gender;
+            string location;
+            string name;
+        public:
+            Person();
+            Person(string i,string bir,string g,string loca,string n);
+            string getId() const;
+            void setId(string i);
+            string getBirthday() const;
+            void setBirthday(string b);
+            string getGender() const;
+            void setGender(string g);
+            string getLocation() const;
+            void setLocation(string loca);
+            string getName() const;
+            void setName(string n);
+            friend ostream& operator <<(ostream& out,Person& p);
+    };
 
+    class Criminal : public Person{
+        private:
+            int numOfRecord;
+            vector<CrimeRecord*> records;
+        public:
+            Criminal();
+            Criminal(string i,string bir,string g,string loca,string n);
+            void addcrimeRecord(CrimeRecord* record);
+            void deletecrimeRecord(CrimeRecord* record);
+            void outputAllinfo();
+            void outputAllRecord();
+            CrimeRecord* getRecord_time(vector<int> t);
     };
 }
 #endif
-

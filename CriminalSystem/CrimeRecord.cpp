@@ -3,33 +3,26 @@
 #include"CriminalSystem.h"
 using namespace std;
 
-namespace CriminalSystem
-{
-    
-    void display(int* months)
-    {
+namespace CriminalSystem{    
+    void display(int* months){
         for(int i=2;i<=12;i++)
             months[i]+=months[i-1];
     }
     CrimeRecord::CrimeRecord():left(nullptr),right(nullptr),p(nullptr) {}
     CrimeRecord::CrimeRecord(int c,CrimeRecord* l,CrimeRecord* r,CrimeRecord* parent):color(c),left(l),right(r),p(p) {}
-    CrimeRecord::CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,Criminal* crimi,int c,CrimeRecord *l,CrimeRecord *r,CrimeRecord *parent):type(t),description(d),left(l),right(r),p(parent),color(c),criminal(crimi)
-    {
+    CrimeRecord::CrimeRecord(string t,string d,int y,int month,int day,int hour,int minute,Criminal* crimi,int c,CrimeRecord *l,CrimeRecord *r,CrimeRecord *parent):type(t),description(d),left(l),right(r),p(parent),color(c),criminal(crimi){
         int months[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
         display(months);
         time=y*525600+(months[month-1]+day)*1440+hour*60+minute;
         //cout << time << endl ;
     }
-    string CrimeRecord::getType() const
-    {
+    string CrimeRecord::getType() const{
         return type;
     }
-    void CrimeRecord::setType(string t)
-    {
+    void CrimeRecord::setType(string t){
         type=t;
     }
-    vector<int> CrimeRecord::getRealTime() const
-    {
+    vector<int> CrimeRecord::getRealTime() const{
         int months[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
         display(months);
         
@@ -56,58 +49,45 @@ namespace CriminalSystem
 
         return res;
     }
-    int CrimeRecord::getTime() const
-    {
+    int CrimeRecord::getTime() const{
         return time;
     }
-    void CrimeRecord::setTime(int y,int month,int day,int hour,int minute)
-    {
+    void CrimeRecord::setTime(int y,int month,int day,int hour,int minute){
         int months[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
         display(months);
         time=y*525600+(months[month-1]+day)*1440+hour*60+minute;
     }
-    CrimeRecord* CrimeRecord::getLeft() const
-    {
+    CrimeRecord* CrimeRecord::getLeft() const{
         return left;
     }
-    void CrimeRecord::setLeft(CrimeRecord* other)
-    {
+    void CrimeRecord::setLeft(CrimeRecord* other){
         left=other;
     }
-    CrimeRecord* CrimeRecord::getRight() const
-    {
+    CrimeRecord* CrimeRecord::getRight() const{
         return right;
     }
-    void CrimeRecord::setRight(CrimeRecord* other)
-    {
+    void CrimeRecord::setRight(CrimeRecord* other){
         right=other;
     }
-    CrimeRecord* CrimeRecord::getParent() const
-    {
+    CrimeRecord* CrimeRecord::getParent() const{
         return p;
     }
-    void CrimeRecord::setParent(CrimeRecord* other)
-    {
+    void CrimeRecord::setParent(CrimeRecord* other){
         p=other;
     }
-    int CrimeRecord::getColor() const
-    {
+    int CrimeRecord::getColor() const{
         return color;
     }
-    void CrimeRecord::setColor(int c)
-    {
+    void CrimeRecord::setColor(int c){
         color=c;
     }
-    Criminal* CrimeRecord::getCriminal() const
-    {
+    Criminal* CrimeRecord::getCriminal() const{
         return criminal;
     }
-    void CrimeRecord::setCriminal(Criminal* other)
-    {
+    void CrimeRecord::setCriminal(Criminal* other){
         criminal=other;
     }
-    ostream& operator <<(ostream& out,const CrimeRecord& cr)
-    {
+    ostream& operator <<(ostream& out,const CrimeRecord& cr){
         int months[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
         display(months);
         
@@ -127,9 +107,8 @@ namespace CriminalSystem
 
         out << "Time : " << year << "/" << month << "/" << day << " " << hour << ":" << minute << endl ;
         out << "Crime type : " << cr.type << endl ;
-        out << "Crime description : " << cr.description ;
+        out << "Crime description : " << cr.description << endl;
 
         return out;
-    }
-    
+    }   
 }
