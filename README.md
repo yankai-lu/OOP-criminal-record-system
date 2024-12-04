@@ -20,3 +20,9 @@ OOP project
 2. 使用 Red Black Trees 查找資料並輸出結果 (搜尋功能在 Red Black Tree已經寫好，只需要呼叫 Red Black Tree 內對應的 functions 即可)
 
 ### GUI 
+
+
+
+### Program執行
+使用VScode時，編譯器路徑有可能與我們的不一樣，需自行修改
+1.ctrl + shift + p → 搜尋「C/C++: Edit Configurations (JSON)」 → 更改compiler path後的地址
