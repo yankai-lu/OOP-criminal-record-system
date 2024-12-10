@@ -31,23 +31,23 @@ class AddPage(pygame.sprite.Sprite):
         self.crime = Button(self.x + 400, self.y + 60, 200, 40, "(Crime Type)", BLUE, "font\\calibri-regular.ttf", 25, WHITE)
         self.selection = pygame.sprite.Group()
         for i in range(AddPage.selectionTypeNumber):
-            self.selection.add(Button(self.crime.rect.topleft[0], self.crime.rect.topleft[1] + 50 * (i+1), 200, 50, AddPage.selectionType[i], PURPLE, "font\\calibri-regular.ttf", 30, WHITE))
+            self.selection.add(Button(self.crime.rect.topleft[0], self.crime.rect.topleft[1] + 40 * (i+1), 200, 40, AddPage.selectionType[i], PURPLE, "font\\calibri-regular.ttf", 25, WHITE))
         self.is_crime_open = False
 
         # input boxes
         self.name = InputBox(self.x + 100, self.y + 10, 200, AddPage.inputBoxHieght, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "name")      # criminal basic information
         self.ID = InputBox(self.x + 100, self.y + 60, 200, AddPage.inputBoxHieght, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "ID")
+        self.gender = InputBox(self.x + 100, self.y + 110, 200, AddPage.inputBoxHieght, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "gender")
+        self.birthday = InputBox(self.x + 100, self.y + 160, 200, AddPage.inputBoxHieght, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "birthday") # criminal personal information
 
         self.year =     InputBox(self.x + 400, self.y + 10, 80, AddPage.inputBoxHieght, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "year")     # time of the crime
         self.month =    InputBox(self.year.rect.left + 100, self.year.rect.top, 80, AddPage.inputBoxHieght, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "month")
         self.day =      InputBox(self.year.rect.left + 200, self.year.rect.top, 80, AddPage.inputBoxHieght, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "day")
         self.hour =     InputBox(self.year.rect.left + 300, self.year.rect.top, 80, AddPage.inputBoxHieght, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "hour")
         self.minute =   InputBox(self.year.rect.left + 400, self.year.rect.top, 80, AddPage.inputBoxHieght, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "minute")
-
-        self.gender = InputBox(self.x + 100, self.y + 110, 200, AddPage.inputBoxHieght, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "gender")
-        self.birthday = InputBox(self.x + 100, self.y + 160, 200, AddPage.inputBoxHieght, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "birthday") # criminal personal information
-        self.location = InputBox(self.x + 100, self.y + 260, 200, AddPage.inputBoxHieght, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "location")
-        self.description = InputBox(self.x + 100, self.y + 360, 400, AddPage.inputBoxHieght * 2, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "description...")
+               
+        self.location = InputBox(self.x + 100, self.y + 310, 500, AddPage.inputBoxHieght, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "location")
+        self.description = InputBox(self.x + 100, self.y + 360, 500, AddPage.inputBoxHieght * 2, AddPage.inputBoxBackgroundColor, AddPage.inputBoxTextSize, BLACK, "description...")
         
         self.active_input_box = None                # active input box
         self.inputBoxGroup = pygame.sprite.Group()  # input box group
@@ -79,11 +79,6 @@ class AddPage(pygame.sprite.Sprite):
     def handle_mouse_event(self, event):
         if self.crime.rect.collidepoint(event.pos):
             self.is_crime_open = not self.is_crime_open
-        elif self.is_crime_open:
-            for option in self.selection:
-                if option.rect.collidepoint(event.pos):
-                    self.crime.set_text(option.text)
-                    self.is_crime_open = False
         elif self.name.rect.collidepoint(event.pos):
             self.active_input_box = self.name
         elif self.ID.rect.collidepoint(event.pos):
@@ -106,8 +101,13 @@ class AddPage(pygame.sprite.Sprite):
             self.active_input_box = self.location
         elif self.description.rect.collidepoint(event.pos):
             self.active_input_box = self.description
-        else:
+        elif self.is_crime_open:
+            for option in self.selection:
+                if option.rect.collidepoint(event.pos):
+                    self.crime.set_text(option.text)
             self.is_crime_open = False
+            self.active_input_box = None
+        else:
             self.active_input_box = None
         
         self.set_not_active()
@@ -115,12 +115,9 @@ class AddPage(pygame.sprite.Sprite):
     # mouse hover event
     # change the color of the button when mouse hover
     def handle_mouse_hover(self, mouse_pos):
-        self.crime.set_color(BLUE)
-        self.crime.set_text_color(WHITE)
-        if(self.crime.rect.collidepoint(mouse_pos)):
+        if(self.is_crime_open):
             self.crime.set_color(LIGHT_BLUE)
             self.crime.set_text_color(BLACK)
-        elif(self.is_crime_open):
             for option in self.selection:
                 if option.rect.collidepoint(mouse_pos): 
                     option.set_color(LIGHT_PURPLE)
@@ -128,6 +125,12 @@ class AddPage(pygame.sprite.Sprite):
                 else:
                     option.set_color(PURPLE)
                     option.set_text_color(WHITE)
+        elif(self.crime.rect.collidepoint(mouse_pos)):
+            self.crime.set_color(LIGHT_BLUE)
+            self.crime.set_text_color(BLACK)
+        else:
+            self.crime.set_color(BLUE)
+            self.crime.set_text_color(WHITE)
                     
     def open_page(self):
         self.is_open = True

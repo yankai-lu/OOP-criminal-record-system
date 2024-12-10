@@ -35,7 +35,7 @@ class DeletePage(pygame.sprite.Sprite):
 
         self.active_input_box = None                # active input box
         self.inputBoxGroup = pygame.sprite.Group()  # input box group
-        self.inputBoxGroup.add(self.name, self.ID, self.year, self.month, self.day, self.hour, self.minute, self.gender, self.birthday, self.location, self.description)
+        self.inputBoxGroup.add(self.name, self.year, self.month, self.day, self.hour, self.minute)
 
     def draw(self, surface):
         surface.blit(self.background, self.rect)

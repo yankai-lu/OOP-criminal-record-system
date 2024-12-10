@@ -7,6 +7,8 @@ import random
 from function import *
 from object import *
 from addpage import *
+from deletepage import *
+from searchpage import *
 
 """GLOBAL VARIABLES"""
 
@@ -145,21 +147,13 @@ def Crime_Manager():
                         Delete_Page()
                     elif search.rect.collidepoint(event.pos):       # search criminal
                         Search_Page()
+                        # 需要return
                     elif isMenuOpen:
                         for option in selection:                    # 檢查滑鼠是否在某個選項上
                             if option.rect.collidepoint(event.pos):
                                 dropDownMenu.set_text(option.text)
                         # close the drop down menu no matter where the mouse is
                         isMenuOpen = False
-            else:
-                dropDownMenu.set_color(BLUE)
-                dropDownMenu.set_text_color(WHITE)
-                add.set_color(BLUE)
-                add.set_text_color(WHITE)
-                delete.set_color(BLUE)
-                delete.set_text_color(WHITE)
-                search.set_color(BLUE)
-                search.set_text_color(WHITE)
         
         # mouse hover event
         pos = pygame.mouse.get_pos()
@@ -186,6 +180,15 @@ def Crime_Manager():
         elif search.rect.collidepoint(pos):
             search.set_color(LIGHT_BLUE)
             search.set_text_color(BLACK)
+        else:
+            dropDownMenu.set_color(BLUE)
+            dropDownMenu.set_text_color(WHITE)
+            add.set_color(BLUE)
+            add.set_text_color(WHITE)
+            delete.set_color(BLUE)
+            delete.set_text_color(WHITE)
+            search.set_color(BLUE)
+            search.set_text_color(WHITE)
 
         # input box color
         if inputBox.is_active():
@@ -216,6 +219,9 @@ def Crime_Manager():
 
 # Add Criminal Page
 def Add_Criminal_Page():
+    # global variable
+    global WINDOW_WIDTH, WINDOW_HEIGHT
+
     # local variables
     addPage = AddPage()
     addPage.open_page()
@@ -231,13 +237,13 @@ def Add_Criminal_Page():
                 if event.key == pygame.K_ESCAPE:
                     addPage.close_page()
                     return
-                # Check for backspace
+               
                 if addPage.active_input_box is None:
                     pass
                 elif event.key == pygame.K_RETURN:          # 按下Enter鍵時，將輸入的字串傳送給後端
                     SYSTEM.newCriminal(addPage.crime.text.encode('utf-8'), addPage.description.text.encode('utf-8'), int(addPage.year.text), int(addPage.month.text), int(addPage.day.text), int(addPage.hour.text), int(addPage.minute.text), addPage.ID.text.encode('utf-8'), addPage.birthday.text.encode('utf-8'), addPage.gender.text.encode('utf-8'), addPage.location.text.encode('utf-8'), addPage.name.text.encode('utf-8'))
                     print("Successdul add a new criminal.")
-                elif event.key == pygame.K_BACKSPACE: 
+                elif event.key == pygame.K_BACKSPACE:        # Check for backspace
                     addPage.active_input_box.text = addPage.active_input_box.text[:-1]
                 elif event.key == pygame.K_RETURN:          # 按下Enter鍵時，將輸入的字串傳送給後端
                     pass
@@ -274,10 +280,122 @@ def Add_Criminal_Page():
 
 
 def Delete_Page():
-    pass
+    # global variable
+    global WINDOW_WIDTH, WINDOW_HEIGHT
+
+    # local variables
+    deletePage = DeletePage()
+    deletePage.open_page()
+
+    while True:
+        # event detect
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            # 鍵盤 
+            elif event.type == pygame.KEYDOWN:              
+                if event.key == pygame.K_ESCAPE:
+                    deletePage.close_page()
+                    return
+                
+                if deletePage.active_input_box is None:
+                    pass
+                elif event.key == pygame.K_RETURN:          # 按下Enter鍵時，將輸入的字串傳送給後端
+                    SYSTEM.deleteCriminal(deletePage.name.text.encode('utf-8'), int(deletePage.year), int(deletePage.month), int(deletePage.day), int(deletePage.hour), int(deletePage.minute))
+                    print("Successdul delete a criminal.")
+                elif event.key == pygame.K_BACKSPACE:       # Check for backspace
+                    deletePage.active_input_box.text = deletePage.active_input_box.text[:-1]
+                elif event.key == pygame.K_RETURN:          # 按下Enter鍵時，將輸入的字串傳送給後端
+                    pass
+                # Unicode standard is used for string formation 
+                else:
+                    deletePage.active_input_box.text += event.unicode
+            # 改變視窗大小
+            elif event.type == pygame.VIDEORESIZE:
+                WINDOW_WIDTH, WINDOW_HEIGHT = window_surface.get_size()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == LEFT:
+                    if deletePage.close.rect.collidepoint(event.pos):
+                        deletePage.close_page()
+                        return
+                    else:
+                        deletePage.handle_mouse_event(event)
+
+
+        for inputbox in deletePage.inputBoxGroup:
+            if inputbox.is_active():
+                inputbox.set_color(InputBox.COLOR_ACTIVE)
+            else:
+                inputbox.set_color(InputBox.COLOR_PASSIVE)
+
+        # draw
+        deletePage.draw(window_surface)
+
+        # update
+        pygame.display.update()
+        deletePage.update()
+                
+        main_clock.tick(FPS)
 
 def Search_Page():
-    pass
+     # global variable
+    global WINDOW_WIDTH, WINDOW_HEIGHT
+
+    # local variables
+    searchPage = SearchPage()
+    searchPage.open_page()
+
+    while True:
+        # event detect
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            # 鍵盤 
+            elif event.type == pygame.KEYDOWN:              
+                if event.key == pygame.K_ESCAPE:
+                    searchPage.close_page()
+                    return
+               
+                if searchPage.active_input_box is None:
+                    pass
+                elif event.key == pygame.K_RETURN:          # 按下Enter鍵時，將輸入的字串傳送給後端
+                    print("Successdul searching.")
+                elif event.key == pygame.K_BACKSPACE:        # Check for backspace
+                    searchPage.active_input_box.text = searchPage.active_input_box.text[:-1]
+                elif event.key == pygame.K_RETURN:          # 按下Enter鍵時，將輸入的字串傳送給後端
+                    pass
+                # Unicode standard is used for string formation 
+                else:
+                    searchPage.active_input_box.text += event.unicode
+            # 改變視窗大小
+            elif event.type == pygame.VIDEORESIZE:
+                WINDOW_WIDTH, WINDOW_HEIGHT = window_surface.get_size()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == LEFT:
+                    if searchPage.close.rect.collidepoint(event.pos):
+                        searchPage.close_page()
+                        return
+                    else:
+                        searchPage.handle_mouse_event(event)
+
+        searchPage.handle_mouse_hover(pygame.mouse.get_pos())
+
+        for inputbox in searchPage.inputBoxGroup:
+            if inputbox.is_active():
+                inputbox.set_color(InputBox.COLOR_ACTIVE)
+            else:
+                inputbox.set_color(InputBox.COLOR_PASSIVE)
+
+        # draw
+        searchPage.draw(window_surface)
+
+        # update
+        pygame.display.update()
+        searchPage.update()
+                
+        main_clock.tick(FPS)
 
 def main():
     # Waiting for the system getting ready.
