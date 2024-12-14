@@ -2,6 +2,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include<cstring>
 #include "CriminalSystem.h"
 //#include "rbT.cpp"
 
@@ -40,17 +41,18 @@ void System::Main(){
             string name;
             cout << "Input the name of the Criminal\n";
             cin >> name;
+            cin.ignore();
 
             string id, bir, gen, loc;
             if(criminal.find(name) == criminal.end()){
                 cout << "Input the ID of the Criminal\n";
-                cin >> id;
+                getline(cin, id);
                 cout << "Input the birthday of the Criminal\n";
-                cin >> bir;
+                getline(cin, bir);
                 cout << "Input the gender of the Criminal\n";
-                cin >> gen;
+                getline(cin, gen);
                 cout << "Input the location of the Criminal\n";
-                cin >> loc;
+                getline(cin, loc);
             }
             else
             {
@@ -63,7 +65,7 @@ void System::Main(){
             vector<string> t(7, "");
             for(int i=0;i<7;i++){
                 cout << "Input the " << tmp[i] << " of the criminal\n";
-                cin >> t[i];
+                getline(cin, t[i]);
             }
             insert(t[0], t[1], stoi(t[2]), stoi(t[3]), stoi(t[4]), stoi(t[5]), stoi(t[6]), id, bir, gen, loc, name);
         }
@@ -190,6 +192,10 @@ void System::erase(string name, vector<int> &time){
     if(!judge)
         cout << "Record does not exist in the System\n";
     
+    if(c->getNumOfRecord() == 0){
+        delete c;
+        criminal.erase(name);
+    }
     /*CrimeRecord *record = c->getRecord_time(time);
     if(record==NULL){
         cout << "Record does not exist in the System\n";
