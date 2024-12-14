@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 #include "CriminalSystem.h"
-#include "RBTree_criminalRecord.cpp"
+//#include "rbT.cpp"
 
 using namespace std;
 using namespace CriminalSystem;
@@ -185,7 +185,12 @@ void System::erase(string name, vector<int> &time){
         return;
     }
     Criminal *c = criminal[name];
-    CrimeRecord *record = c->getRecord_time(time);
+    
+    bool judge=c->DeleteCrimeRecord(treeNumber,crimeTree,time);
+    if(!judge)
+        cout << "Record does not exist in the System\n";
+    
+    /*CrimeRecord *record = c->getRecord_time(time);
     if(record==NULL){
         cout << "Record does not exist in the System\n";
     }
@@ -193,7 +198,7 @@ void System::erase(string name, vector<int> &time){
         int treeNum = treeNumber[record->getType()];
         c->deletecrimeRecord(record);
         crimeTree[treeNum].Delete(crimeTree[treeNum], record);
-    }
+    }*/
 }
 
 //  搜尋某個特定時間點的犯罪紀錄
