@@ -76,7 +76,7 @@ namespace CriminalSystem{
             Criminal(string i,string bir,string g,string loca,string n);
             ~Criminal();
             void addcrimeRecord(CrimeRecord* record);
-            void deletecrimeRecord(CrimeRecord* record);
+            //void deletecrimeRecord(CrimeRecord* record);
             void outputAllinfo();
             void outputAllRecord();
             bool DeleteCrimeRecord(map<string,int>& treeNumber,RB_Tree* crimeTree, vector<int>& t);
