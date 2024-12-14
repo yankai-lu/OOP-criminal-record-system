@@ -4,7 +4,7 @@
 using namespace CriminalSystem;
 typedef CrimeRecord Node;
 
-class RB_Tree{
+/*class RB_Tree{
     Node* root;
     Node* nil;
     void _leftRotate(RB_Tree& T, Node* x);
@@ -24,7 +24,7 @@ public:
     void Delete(RB_Tree& T, Node* z);
     vector<Node*> SearchTime(int year, int month, int day, int hour, int minute);
     vector<Node*> SearchInterval(int year1, int month1, int day1, int hour1, int minute1, int year2, int month2, int day2, int hour2, int minute2);
-};
+};*/
 
 void RB_Tree::_leftRotate(RB_Tree& T, Node* x){
     Node* y = x->getRight();
