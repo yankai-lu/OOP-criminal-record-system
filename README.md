@@ -24,8 +24,8 @@ OOP project
 
 
 ### Program執行
-使用VScode時，編譯器路徑有可能與我們的不一樣，需自行修改.vscode資料夾中的環境參數
-1.  ctrl + shift + p → 搜尋「C/C++: Edit Configurations (JSON)」
+使用VSCode時，編譯器路徑有可能與我們的不一樣，需自行修改.vscode資料夾中的環境參數
+1.  `ctrl` + `shift` + `p` → 搜尋「C/C++: Edit Configurations (JSON)」
 2.  新增 "includePath" 後的地址
 3.  更改 "compiler path" 後的地址
 4.  更改 "intelliSenseMode" 為您的OS類型
