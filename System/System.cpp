@@ -2,7 +2,7 @@
 #include <vector>
 #include <map>
 #include <string>
-#include<cstring>
+#include <cstring>
 #include "CriminalSystem.h"
 //#include "rbT.cpp"
 
